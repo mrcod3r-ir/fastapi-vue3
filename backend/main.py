@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2022/4/17 17:08
 # @Author : zxiaosi
-# @desc : 主函数
+# @desc : main function
 import uvicorn
 from fastapi import FastAPI
 
@@ -15,31 +15,31 @@ app = FastAPI(description=settings.PROJECT_DESC, version=settings.PROJECT_VERSIO
 
 
 def create_app():
-    """ 注册中心 """
-    register_mount(app)  # 挂载静态文件
+    """ Registration Center """
+    register_mount(app)  # Mount static files
 
-    register_exception(app)  # 注册捕获全局异常
+    register_exception(app)  # Register to catch global exceptions
 
-    register_router(app)  # 注册路由
+    register_router(app)  # register route
 
-    register_middleware(app)  # 注册请求响应拦截
+    register_middleware(app)  # Registration request response interception
 
-    register_cors(app)  # 注册跨域请求
+    register_cors(app)  # Register Cross-Origin Request
 
-    logger.info("日志初始化成功！！！")  # 初始化日志
+    logger.info("Log initialization succeeded ！！！")  # Initialize log
 
 
 @app.on_event("startup")
 async def startup():
-    create_app()  # 加载注册中心
-    # await init_db()  # 初始化表
-    # await init_data()  # 初始化数据
+    create_app()  # Load registry
+    # await init_db()  # initialization table
+    # await init_data()  # Initialization data
     app.state.redis = await init_redis_pool()  # redis
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    await app.state.redis.close()  # 关闭 redis
+    await app.state.redis.close()  # close redis
 
 
 if __name__ == '__main__':

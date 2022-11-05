@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/11/17 11:05
 # @Author : zxiaosi
-# @desc : 操作管理员表
+# @desc : operation administrator table
 from typing import Union, Dict, Any
 from sqlalchemy import insert, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,10 +15,10 @@ from schemas import AdminCreate, AdminUpdate
 
 class CRUDAdmin(CRUDBase[Admin, AdminCreate, AdminUpdate]):
     async def create(self, db: AsyncSession, obj_in: AdminCreate) -> int:
-        """ 添加管理员信息 """
-        setattr(obj_in, 'id', int(obj_in.id))  # postgresql 字段类型限制
+        """ Add administrator information """
+        setattr(obj_in, 'id', int(obj_in.id)) # postgresql field type restrictions
         obj_in_data = {}
-        for k, v in obj_in.dict().items():  # 排除空值
+        for k, v in obj_in.dict().items(): # exclude nulls
             if v:
                 if k == 'password':
                     obj_in_data['hashed_password'] = get_password_hash(obj_in.password)
@@ -30,13 +30,13 @@ class CRUDAdmin(CRUDBase[Admin, AdminCreate, AdminUpdate]):
         return result.rowcount
 
     async def update(self, db: AsyncSession, id: int, obj_in: Union[AdminUpdate, Dict[str, Any]]) -> int:
-        """ 更新管理员信息 """
-        if isinstance(obj_in, dict):  # 判断对象是否为字典类型(更新部分字段)
+        """ Update administrator information """
+        if isinstance(obj_in, dict): # Determine whether the object is a dictionary type (update some fields)
             teacher_data = obj_in
         else:
             teacher_data = obj_in.dict(exclude_unset=True)
         obj_data = {}
-        for k, v in teacher_data.items():  # 排除空值
+        for k, v in teacher_data.items(): # exclude nulls
             if v:
                 if k == 'password':
                     obj_data['hashed_password'] = get_password_hash(obj_in.password)

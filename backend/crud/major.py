@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/11/1 21:03
 # @Author : zxiaosi
-# @desc : 操作专业表
+# @desc : Operating professional table
 from crud import CRUDBase
 from models import Major
 from schemas import MajorCreate, MajorUpdate

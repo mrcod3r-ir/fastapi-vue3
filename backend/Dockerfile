@@ -1,24 +1,24 @@
-﻿# Python版本
+﻿# Python Version
 FROM python:3.9
 
-# 工作路径
+# work path
 WORKDIR /code
 
-# 方便下面使用缓存加载
+# It is convenient to use cache loading below
 COPY ./requirements.txt /code/requirements.txt
 
-# 使用缓存下载安装包
+# Download the installation package using the cache
 #RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-# 使用缓存下载安装包(镜像)
+# Use the cache to download the installation package (mirror)
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --default-timeout=1000 --no-cache-dir --upgrade -r /code/requirements.txt
 
-# docker部署(https://fastapi.tiangolo.com/zh/deployment/docker/)
-# .表示同级目录下
+# docker deploy (https://fastapi.tiangolo.com/zh/deployment/docker/)
+# .Indicates the same level directory
 COPY . /code/
 
-# 启动命令
+# start command
 #CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
 
-# main.py启动命令
+# main.py start command
 CMD ["python", "main.py"]

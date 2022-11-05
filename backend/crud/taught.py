@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2022/5/10 21:00
 # @Author : zxiaosi
-# @desc : 操作讲授表
+# @desc : Operation Lecture Sheet
 from typing import Any
 
 from sqlalchemy import select
@@ -15,7 +15,7 @@ from schemas import TaughtCreate, TaughtUpdate
 
 class CRUDTaught(CRUDBase[Taught, TaughtCreate, TaughtUpdate]):
     async def get_course(self, db: AsyncSession, id: Any) -> Any:
-        """ 得到课程详情 """
+        """ Get course details """
         fields = [self.model.courseId, Course.name.label('courseName'),
                   Elective.studentId, Student.name.label('studentName'),
                   Elective.id, Elective.grade, Elective.update_time]
@@ -25,7 +25,7 @@ class CRUDTaught(CRUDBase[Taught, TaughtCreate, TaughtUpdate]):
             .join(Student, Elective.studentId == Student.id)
         result = await db.execute(sql)
         # print(list_obj_as_dict(result.all()))
-        await db.close()  # 释放会话
+        await db.close()  # release the session
         return result.fetchall()
 
 

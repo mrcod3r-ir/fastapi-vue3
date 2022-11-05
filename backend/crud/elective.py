@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/11/18 10:09
 # @Author : zxiaosi
-# @desc : 操作选课表
+# @desc : Operation course selection table
 from typing import Any, Union
 
 from sqlalchemy import select, insert
@@ -16,7 +16,7 @@ from utils import obj_as_dict, list_obj_as_dict
 
 class CRUDElective(CRUDBase[Elective, ElectiveCreate, ElectiveUpdate]):
     async def get_course(self, db: AsyncSession, id: Any) -> Any:
-        """ 得到课程详情 """
+        """ Get course details """
         fields = [self.model.courseId, Course.name.label('courseName'),
                   Teacher.id.label('teacherId'), Teacher.name.label('teacherName'),
                   self.model.grade, self.model.create_time]
@@ -31,7 +31,7 @@ class CRUDElective(CRUDBase[Elective, ElectiveCreate, ElectiveUpdate]):
         return result.fetchall()
 
     async def is_exist(self, db: AsyncSession, studentId: int, courseId: int) -> int:
-        """ 判断数据是否已经存在 """
+        """ Check if data already exists """
         sql1 = select(self.model) \
             .where(self.model.studentId == studentId) \
             .where(self.model.courseId == courseId)
@@ -39,8 +39,8 @@ class CRUDElective(CRUDBase[Elective, ElectiveCreate, ElectiveUpdate]):
         return result
 
     async def create(self, db: AsyncSession, obj_in: Union[Elective]) -> int:
-        """ 添加对象 """
-        if isinstance(obj_in, dict):  # 判断对象是否为字典类型(更新部分字段)
+        """ add object """
+        if isinstance(obj_in, dict): # Determine whether the object is a dictionary type (update some fields)
             obj_data = obj_in
         else:
             obj_data = obj_in.dict()

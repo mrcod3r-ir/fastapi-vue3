@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/11/15 19:53
 # @Author : zxiaosi
-# @desc : 操作教师表
+# @desc : operation teacher table
 from typing import Union, Dict, Any
 
 from sqlalchemy import insert, update
@@ -16,10 +16,10 @@ from schemas import TeacherCreate, TeacherUpdate
 
 class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
     async def create(self, db: AsyncSession, obj_in: TeacherCreate) -> int:
-        """ 添加教师信息 """
-        setattr(obj_in, 'id', int(obj_in.id))  # postgresql 字段类型限制
+        """ Add teacher information """
+        setattr(obj_in, 'id', int(obj_in.id))  # postgresql Field Type Restrictions
         obj_in_data = {}
-        for k, v in obj_in.dict().items():  # 排除空值
+        for k, v in obj_in.dict().items():  # exclude empty values
             if v:
                 if k == 'password':
                     obj_in_data['hashed_password'] = get_password_hash(obj_in.password)
@@ -31,13 +31,13 @@ class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
         return result.rowcount
 
     async def update(self, db: AsyncSession, id: int, obj_in: Union[TeacherUpdate, Dict[str, Any]]) -> int:
-        """ 更新教师信息 """
-        if isinstance(obj_in, dict):  # 判断对象是否为字典类型(更新部分字段)
+        """ Update teacher information """
+        if isinstance(obj_in, dict):  # Determine whether the object is a dictionary type (update some fields)
             teacher_data = obj_in
         else:
             teacher_data = obj_in.dict(exclude_unset=True)
         obj_data = {}
-        for k, v in teacher_data.items():  # 排除空值
+        for k, v in teacher_data.items():  # exclude empty values
             if v:
                 if k == 'password':
                     obj_data['hashed_password'] = get_password_hash(obj_in.password)

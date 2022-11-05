@@ -1,90 +1,90 @@
->最新代码见 dev 分支
+> See the dev branch for the latest code
 
-# 学生选课系统
+# Student course selection system
 
-## 预览
+## preview
 
-+ 🎉🎉🎉感谢 [**wendingming**](https://gitee.com/wendingming) 整理的 [<font color="red">项目部署的准备工作</font>](https://gitee.com/zxiaosi/fast-api/issues/I4V6WV)
-+ 🎉🎉🎉感谢 [**dreamrise**](https://gitee.com/dreamrise) 整理的 [<font color="red">运行配置介绍</font>](https://gitee.com/zxiaosi/fast-api/issues/I56HPN)
+- 🎉🎉🎉Thanks to [**wendingming**](https://gitee.com/wendingming) for [<font color="red">Preparation for project deployment</font>](https://gitee .com/zxiaosi/fast-api/issues/I4V6WV)
+- 🎉🎉🎉Thanks to [**dreamrise**](https://gitee.com/dreamrise) for [<font color="red">Introduction to running configuration</font>](https://gitee.com /zxiaosi/fast-api/issues/I56HPN)
 
-## 安装
+## Install
 
-+ **后端安装**：[FastAPI](https://gitee.com/zxiaosi/fast-api/tree/master/backend#安装)（代码参考[CharmCode](https://www.charmcode.cn/category/FastAPI?page=1)）
-+ **前端安装**：[Vue3+Ts](https://gitee.com/zxiaosi/fast-api/tree/master/frontend#安装) (代码参考[Vue-Manage-System](https://github.com/lin-xin/vue-manage-system))
+- **Backend installation**: [FastAPI](https://gitee.com/zxiaosi/fast-api/tree/master/backend#installation) (code reference[CharmCode](https://www.charmcode. cn/category/FastAPI?page=1))
+- **Front-end installation**: [Vue3+Ts](https://gitee.com/zxiaosi/fast-api/tree/master/frontend#installation) (code reference[Vue-Manage-System](https:/ /github.com/lin-xin/vue-manage-system))
 
-## 版本
+## Version
 
-+ `1.0` 测试数据的增删改查已完成
-+ `1.1` 院系表的增删改查已完成（见`信息表格`）
-+ `1.2` 首页仪表盘信息的优化
-+ `1.3` 院系表的增删改查初步完成
-+ `1.4` 整理代码
-+ `1.5` 添加了教师表
-+ `1.6` 添加了学生表、课程表、选课表
-+ `1.7` 重构前端代码
-+ `1.8` 封装组件，取出冗余代码
-+ `1.9` 自定义表格组件
-+ `2.0` 部署项目
-+ `2.1` 重构FastAPI
-+ `2.2` 配置nginx以及SSL证书(域名未备案，ssl证书未生效)
-+ `2.3` 添加Redis
-+ `2.4` 加入TS
-+ `2.5` 支持PostgreSQL，实现图片上传
-+ `2.6` 前端文件分离(vue与ts)，后端实现权限管理
-+ `2.7` 简单实现权限管理
-+ `2.8` 调整数据库结构&&简单实现学生选课
-+ `2.9` 简单实现教师讲授课程
+- `1.0` The addition, deletion and modification of test data has been completed
+- `1.1` The addition, deletion and modification of the department table has been completed (see `Information table`)
+- `1.2` Optimization of dashboard information on home page
+- `1.3` Preliminary completion of adding, deleting, modifying and checking the department table
+- `1.4` clean up code
+- `1.5` added teacher table
+- `1.6` added student table, course table, course selection table
+- `1.7` refactored front-end code
+- `1.8` package components, remove redundant code
+- `1.9` custom table component
+- `2.0` deployment project
+- `2.1` refactored FastAPI
+- `2.2` Configure nginx and SSL certificate (the domain name has not been filed, and the ssl certificate has not taken effect)
+- `2.3` add Redis
+- `2.4` added TS
+- `2.5` supports PostgreSQL for image uploading
+- `2.6` Front-end file separation (vue and ts), back-end implements permission management
+- `2.7` Simple implementation of rights management
+- `2.8` Adjust database structure && simple implementation of student course selection
+- `2.9` Simple implementation of teacher-taught courses
 
->TODO：优化代码
+> TODO: optimize the code
 
-## 开启服务
+## start the service
 
-1. 后端
+1. Backend
 
-   + 进入到 `backend` 项目下
-   + 找到 `main.py` 右键运行（建议用Pycharm启动）
+   - go to the `backend` project
+   - Find `main.py` right click to run (it is recommended to start with Pycharm)
 
-   >接口文档：http://127.0.0.1:8000/docs
+   > Interface documentation: http://127.0.0.1:8000/docs
 
-2. 前端
+2. Front end
 
-   + 进到 `frontend` 目录下
-   + `npm run dev` 运行项目（建议用Vscode）
+   - go to the `frontend` directory
+   - `npm run dev` to run the project (Vscode is recommended)
 
-   >服务接口：http://localhost:3000/
+   > Service interface: http://localhost:3000/
 
-3. 效果
+3. Effects
 
-+ 登录界面
-  
-  + `用户名`：`admin`
+- login interface
 
-  + `密码`：`123`
-  
-  + 如图
-  
+  - `username`: `admin`
+
+  - `password`: `123`
+
+  - as shown
+
     ![](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/frontend-login.png)
-  
-+ 首页（假数据）
+
+- Home (fake data)
 
   ![home](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/home.png)
-  
-+ 数据的`增`
+
+- `increment` of data
 
   ![add](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/add.gif)
-  
-+ 数据的`删`
+
+- `deletion` of data
 
   ![delete](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/delete.gif)
 
-+ 数据的`改`
+- `change` of data
 
   ![update](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/update.gif)
 
-+ 搜索数据
+- search data
 
   ![](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/search.gif)
 
-+ 多选删除
+- multi-select delete
 
   ![selectedDelete](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/selectedDelete.gif)

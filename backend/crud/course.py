@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/11/17 16:29
 # @Author : zxiaosi
-# @desc : 操作课程表
+# @desc : Operational Curriculum
 from crud.base import CRUDBase
 from models import Course
 from schemas import CourseCreate, CourseUpdate
