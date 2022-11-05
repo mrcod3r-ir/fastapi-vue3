@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2022/3/4 11:42
 # @Author : zxiaosi
-# @desc : 上传图片 https://fastapi.tiangolo.com/zh/tutorial/request-files/?h=up#uploadfile
+# @desc : upload image https://fastapi.tiangolo.com/en/tutorial/request-files/?h=up#uploadfile
 import shutil
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -20,14 +20,14 @@ from utils.create_dir import create_dir
 router = APIRouter()
 
 
-@router.post("/upload/file/", summary="上传头像")
+@router.post("/upload/file/", summary="Upload avatar")
 async def upload_image(
         file: UploadFile = File(...),
         db: Session = Depends(get_db),
         current_user: Admin = Depends(get_current_user)
 ):
     static_path = create_dir(settings.STATIC_DIR)
-    logger.info(f"用户 {current_user.name} 正在上传图片 {file.filename}.")
+    logger.info(f"User {current_user.name} is uploading pictures {file.filename}.")
     try:
         suffix = Path(file.filename).suffix
         with NamedTemporaryFile(delete=False, suffix=suffix, dir=static_path) as tmp:
@@ -37,4 +37,4 @@ async def upload_image(
         file.file.close()
     user = crud.admin.update(db, db_obj=current_user,
                              obj_in={'image': f"{settings.BASE_URL}/{settings.STATIC_DIR}/{tmp_file_name}"})
-    return resp_200(data=user, msg='上传成功！')
+    return resp_200(data=user, msg='Upload successful!')

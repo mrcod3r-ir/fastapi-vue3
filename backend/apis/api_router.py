@@ -2,17 +2,17 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/10/15 20:01
 # @Author : zxiaosi
-# @desc : 接口汇总
+# @desc : interface summary
 from fastapi import APIRouter
 
 from apis.common import upload, student, teacher, department, major, course, taught, elective
 
 app_router = APIRouter()
 
-# include_in_schema=False 隐藏属性
-# deprecated=True 弃用属性
+# include_in_schema=False hidden attribute
+# deprecated=True deprecated properties
 
-# 上传图片
+# upload image
 app_router.include_router(upload.router, tags=["Upload"])
 
 # common
@@ -29,4 +29,4 @@ app_router.include_router(taught.router, prefix="/taught", tags=["taught"])
 
 # teacher
 
-# student
+#student

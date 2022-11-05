@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 # @Time : 2021/10/28 19:18
 # @Author : zxiaosi
-# @desc : 院系表接口
+# @desc : Department table interface
 from typing import List
 
 from fastapi import APIRouter, Depends, Security
@@ -16,61 +16,61 @@ from utils import resp_200, IdNotExist
 router = APIRouter()
 
 
-@router.get("/{id}", response_model=Result[Department], summary='根据 id 查询院系信息')
+@router.get("/{id}", response_model=Result[Department], summary='Query department information according to id')
 async def read_department(id: int, db: AsyncSession = Depends(get_db),
                           user=Security(get_current_user, scopes=[])):
     _department = await department.get(db, id)
     if not _department:
-        raise IdNotExist(f"系统中不存在 id 为 {id} 的院系.")
-    return resp_200(data=_department, msg=f"查询到了 id 为 {id} 的院系.")
+        raise IdNotExist(f"There is no department with id {id} in the system.")
+    return resp_200(data=_department, msg=f"The department whose id is {id} was queried.")
 
 
-@router.get("/", response_model=ResultPlus[Department], summary='根据页码 pageIndex 和每页个数 pageSize 查询所有院系')
+@router.get("/", response_model=ResultPlus[Department], summary='Query all departments according to the page number pageIndex and the number of pages per page pageSize')
 async def read_departments(pageIndex: int = 1, pageSize: int = 10, db: AsyncSession = Depends(get_db),
                            user=Security(get_current_user, scopes=[])):
-    """ 查询所有院系 (pageIndex = -1 && pageSize = -1 表示查询所有) """
+    """ Query all departments (pageIndex = -1 && pageSize = -1 means query all) """
     _count = await department.get_number(db)
     _departments = await department.get_multi(db, pageIndex, pageSize)
-    return resp_200(data={"count": _count, "list": _departments}, msg=f"查询了第 {pageIndex} 页中的 {pageSize} 个院系信息.")
+    return resp_200(data={"count": _count, "list": _departments}, msg=f"Query the information of {pageSize} departments in page {pageIndex}.")
 
 
-@router.post("/", response_model=Result, summary='添加院系信息')
+@router.post("/", response_model=Result, summary='Add department information')
 async def create_department(department_in: DepartmentCreate, db: AsyncSession = Depends(get_db),
                             user=Security(get_current_user, scopes=["admin"])):
     await department.create(db, obj_in=department_in)
-    return resp_200(msg=f"添加了 id 为 {department_in.id} 的院系信息.")
+    return resp_200(msg=f"Added the information of the department whose id is {department_in.id}.")
 
 
-@router.put("/{id}", response_model=Result, summary='通过 id 更新院系信息')
+@router.put("/{id}", response_model=Result, summary='Update department information by id')
 async def update_department(id: int, department_in: DepartmentUpdate, db: AsyncSession = Depends(get_db),
                             user=Security(get_current_user, scopes=["admin"])):
     rowcount = await department.update(db, id=id, obj_in=department_in)
-    if not rowcount:  # 每次更新, 当前数据的更新时间会变, 只要id存在, 就会一直返回1
-        raise IdNotExist(f"系统中不存在 id 为 {id} 的院系.")
-    return resp_200(msg=f"更新了 id 为 {id} 的院系信息.")
+    if not rowcount: # Every update, the update time of the current data will change, as long as the id exists, it will always return 1
+        raise IdNotExist(f"There is no department with id {id} in the system.")
+    return resp_200(msg=f"Updated the information of the department whose id is {id}.")
 
 
-@router.delete("/{id}", response_model=Result, summary='通过 id 删除院系信息')
+@router.delete("/{id}", response_model=Result, summary='Delete department information by id')
 async def delete_department(id: int, db: AsyncSession = Depends(get_db),
                             user=Security(get_current_user, scopes=["admin"])):
     rowcount = await department.remove(db, id)
     if not rowcount:
-        raise IdNotExist(err_desc=f"系统中不存在 id 为 {id} 的院系.")
-    return resp_200(msg=f'成功删除 id 为 {id} 的院系信息.')
+        raise IdNotExist(err_desc=f"There is no department with id {id} in the system.")
+    return resp_200(msg=f'Successfully deleted the information of the department whose id is {id}.')
 
 
-@router.post("/del/", response_model=Result, summary='同时删除多个院系信息')
+@router.post("/del/", response_model=Result, summary='Delete information of multiple departments at the same time')
 async def delete_departments(idList: List, db: AsyncSession = Depends(get_db),
                              user=Security(get_current_user, scopes=["admin"])):
     rowcount = await department.remove_multi(db, id_list=idList)
     if not rowcount:
-        raise IdNotExist(err_desc="系统中不存在列表中的id.")
-    return resp_200(msg='成功删除多个院系信息.')
+        raise IdNotExist(err_desc="The id in the list does not exist in the system.")
+    return resp_200(msg='Successfully deleted the information of multiple departments.')
 
 
-@router.get("/sort/{name}", summary='根据字段排序')
+@router.get("/sort/{name}", summary='sort by field')
 async def get_select_courses(name: str, pageIndex: int = 1, pageSize: int = 10, db: AsyncSession = Depends(get_db)):
-    """ 查询所有院系 (pageIndex = -1 && pageSize = -1 表示查询所有) """
+    """ Query all departments (pageIndex = -1 && pageSize = -1 means query all) """
     _count = await department.get_number(db)
     _departments = await department.sort(db, name, pageIndex, pageSize)
-    return resp_200(data={"count": _count, "list": _departments}, msg=f"查询了第 {pageIndex} 页中的 {pageSize} 个院系信息.")
+    return resp_200(data={"count": _count, "list": _departments}, msg=f"Query the information of {pageSize} departments in page {pageIndex}.")
